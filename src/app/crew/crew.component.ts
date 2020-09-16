@@ -17,8 +17,19 @@ export class CrewComponent implements OnInit {
 
   constructor() { }
 
+  canAddSave(name: string): boolean{
+    for (let member of this.crew) {
+      if (name.toLowerCase() === member['name'].toLowerCase()) {
+        return false
+      }
+    }
+    return true
+  }
+
   add(memberName: string, isFirst: boolean) {
-    this.crew.push({name: memberName, firstMission: isFirst});
+    if (this.canAddSave(memberName)) {
+      this.crew.push({name: memberName, firstMission: isFirst});
+    }
   }
 
   remove(member: object) {
@@ -31,7 +42,9 @@ export class CrewComponent implements OnInit {
  }
 
  save(name: string, member: object) {
-  member['name'] = name;
+   if (this.canAddSave(name)) {
+     member['name'] = name;
+   }
   this.memberBeingEdited = null;
   }
 
