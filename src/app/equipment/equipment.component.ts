@@ -30,7 +30,7 @@ export class EquipmentComponent implements OnInit {
 
    addCargo(item: object): void {
       this.cargoHold.push(item)
-      this.cargoMass = this.cargoMass + item.mass
+      this.cargoMass = this.cargoMass + item['mass']
     }
    
     canAddCargo(): boolean {
@@ -42,7 +42,7 @@ export class EquipmentComponent implements OnInit {
     }
    
      inactive(item: object): boolean {
-       if (this.cargoHold.length === this.maxItems || this.cargoMass + item.mass > this.maximumAllowedMass) {
+       if (this.cargoHold.length === this.maxItems || this.cargoMass + item['mass'] > this.maximumAllowedMass) {
          return true
        } else {
          return false
