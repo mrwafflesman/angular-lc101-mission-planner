@@ -1,3 +1,4 @@
+import { isNgTemplate } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -21,11 +22,36 @@ export class EquipmentComponent implements OnInit {
    cargoMass: number = 0;
    maximumAllowedMass: number = 2000;
    maxItems: number = 10;
+   warningMass: number = this.maximumAllowedMass - 200
 
    constructor() { }
 
    ngOnInit() { }
 
-   // Code your addItem function here:
+   addCargo(item: object): void {
+      this.cargoHold.push(item)
+      this.cargoMass = this.cargoMass + item.mass
+    }
+   
+    canAddCargo(): boolean {
+      if (this.cargoMass >= this.warningMass) {
+        return true
+      } else {
+        return false
+      }
+    }
+   
+     inactive(item: object): boolean {
+       if (this.cargoHold.length === this.maxItems || this.cargoMass + item.mass > this.maximumAllowedMass) {
+         return true
+       } else {
+         return false
+       }
+     }
+
+     emptyHold(): void {
+       this.cargoHold.splice(0, this.cargoHold.length)
+       this.cargoMass = 0
+     }
    
 }
